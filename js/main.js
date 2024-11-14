@@ -39,10 +39,7 @@ function dificultad() {
 }
 
 function generarCartas(valorDificultad, numImg, tematica) {
-	console.log(valorDificultad)
-	console.log(numImg)
-	console.log(tematica)
-
+	setLvlPartida(valorDificultad);
 	cronometrar();
 	cargarNumPartidas();
 
@@ -211,8 +208,25 @@ function scorePartida() {
 	let divScore = document.getElementById("puntosValue");
 	divScore.innerHTML = puntos;
 }
+function setLvlPartida(valorDificultad) {//axalpusa
+	let lvlPartida = document.getElementById("lvlPartidasValue");
+	switch (valorDificultad) {
+		case 2:
+			lvlPartida.innerHTML = "facil";
+			break;
+		case 4:
+			lvlPartida.innerHTML = "medio";
+			break;
+		case 6:
+			lvlPartida.innerHTML = "dificl";
+			break;
+	}
+	//document.getElementById("numPartidasValue").innerHTML = numPartidas;
+	//lvlPartida.innerHTML = lvlPartida;
+}
 
 //CRONOMETRO(EL EL FICHERO CRONOMETRO.JS)
+
 function cronometrar() {
 	if (partidaIniciada) {
 		partidaIniciada = false;
@@ -264,6 +278,10 @@ function startIntro() {
 			{
 				element: '#tablaPuntuaciones',
 				intro: "Visualiza la tabla de puntuaciones guardadas, en orden descendente."
+			},
+			{
+				element: '#lvlPartidas',
+				intro: "Nivel de la partida."
 			},
 			{
 				element: '#numPartidas',

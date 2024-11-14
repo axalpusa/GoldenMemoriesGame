@@ -47,11 +47,13 @@
             <div id="modal-score-body" class="modal-score-body">
                 <div class='tabla'>
                     <label class='titlePtos'>Nombre</label>
+                    <label class='titlePtos'>Nivel</label>
                     <label class='titlePtos'>Puntos</label>
                     <label class='titlePtos'>Tiempo</label>
                 </div>
                 <div class="tabla">
                     <input id="nombreJugador" type="text">
+                    <label id="nivelPartida"></label>
                     <label id="puntosPartida"></label>
                     <label id="tiempoPartida"></label>
                 </div>
@@ -79,6 +81,9 @@
     </div>
 
     <div class="container">
+        <div id="lvlPartidas" class="lvlPartidas">
+            Nivel: <span id="lvlPartidasValue"></span>
+        </div>
         <div id="numPartidas" class="numPartidas">
             Partida nº: <span id="numPartidasValue"></span>
         </div>

@@ -1,6 +1,7 @@
 class Partida {
-    constructor(nombre, puntos, tiempo, fecha) {
+    constructor(nombre, nivel, puntos, tiempo, fecha) {
         this._nombre = nombre;
+        this._nivel = nivel;
         this._puntos = puntos;
         this._tiempo = tiempo;
         this._fecha = fecha;
@@ -12,6 +13,14 @@ class Partida {
 
     get nombre() {
         return this._nombre;
+    }
+
+    set nivel(value) {
+        return this._nivel = value;
+    }
+
+    get nivel() {
+        return this._nivel;
     }
 
     set puntos(value) {
@@ -45,6 +54,9 @@ function guardarPuntuacion() {
     nuevaPartida.value = "";
     nuevaPartida.focus();
 
+    let lvbNivel = document.getElementById("nivelPartida");
+    lvbNivel.innerHTML = document.getElementById("lvlPartidasValue").innerHTML;
+
     let lblPuntos = document.getElementById("puntosPartida");
     lblPuntos.innerHTML = document.getElementById("puntosValue").innerHTML;
 
@@ -59,8 +71,8 @@ function guardarPuntuacion() {
         if(nombreJugador == "") {
             nombreJugador = "Sin nombre";
         }
-        console.log(nombreJugador);
-        webStorage(new Partida(nombreJugador, lblPuntos.innerHTML, lblTiempo.innerHTML, fechaActual));
+        
+        webStorage(new Partida(nombreJugador,lvbNivel.innerHTML, lblPuntos.innerHTML, lblTiempo.innerHTML, fechaActual));
         document.getElementById("modalScore").setAttribute("class", "hide");
         historialPartidas();
     };

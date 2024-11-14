@@ -35,13 +35,18 @@ body {
     display: grid;
     text-align: center;
     gap: 10px;
-    grid-template-areas: "numPartidas maxPuntos puntos cronometro"
-                         "baraja baraja baraja baraja";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "lvlPartidas numPartidas maxPuntos puntos cronometro"
+                         "baraja baraja baraja baraja baraja";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.numPartidas, .maxPuntos, .puntos, .reloj {    
+.lvlPartidas .numPartidas, .maxPuntos, .puntos, .reloj {    
     font-family: 'good-times';
+}
+
+/*NIVEL */
+.lvlPartidas {
+    grid-area: lvlPartidas;   
 }
 
 /*PARTIDAS*/
