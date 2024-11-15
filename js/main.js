@@ -24,15 +24,15 @@ function dificultad() {
 	switch (this.id) {
 		case "facil":
 			//generarCartas(4, 8, nivelUno);
-			generarCartas(2, 2, nivelUno);
+			generarCartas(3, 3, nivelUno);
 			break;
 		case "medio":
 			//generarCartas(6, 18, nivelDos);
-			generarCartas(4, 8, nivelDos);
+			generarCartas(4, 6, nivelDos);
 			break;
 		case "dificil":
 			//generarCartas(8, 32, nivelTres);
-			generarCartas(6, 18, nivelTres);
+			generarCartas(5, 10, nivelTres);
 			break;
 	}
 	document.getElementById("modal").setAttribute("class", "hide");
@@ -44,7 +44,7 @@ function generarCartas(valorDificultad, numImg, tematica) {
 	cargarNumPartidas();
 
 	let parentElement = document.getElementById("wrapper");
-	let numElements = valorDificultad * valorDificultad;
+	let numElements = valorDificultad * (valorDificultad - 1);
 	let listaImagenes = imagenes(numImg, tematica);
 
 	for (let i = 0; i < numElements; i++) {
@@ -211,13 +211,13 @@ function scorePartida() {
 function setLvlPartida(valorDificultad) {//axalpusa
 	let lvlPartida = document.getElementById("lvlPartidasValue");
 	switch (valorDificultad) {
-		case 2:
+		case 3:
 			lvlPartida.innerHTML = "facil";
 			break;
 		case 4:
 			lvlPartida.innerHTML = "medio";
 			break;
-		case 6:
+		case 5:
 			lvlPartida.innerHTML = "dificl";
 			break;
 	}
