@@ -37,7 +37,7 @@ function cargarImagenes() {
 	nivelTres[7] = "img/nivelTres/imagen8.png";
 	nivelTres[8] = "img/nivelTres/imagen9.png";
 	nivelTres[9] = "img/nivelTres/imagen10.png";
-	nivelTres[10] = "img/nivelTres/imagen11.png";
+	/*nivelTres[10] = "img/nivelTres/imagen11.png";
 	nivelTres[11] = "img/nivelTres/imagen12.png";
 	nivelTres[12] = "img/nivelTres/imagen13.png";
 	nivelTres[13] = "img/nivelTres/imagen14.png";
@@ -59,5 +59,5 @@ function cargarImagenes() {
 	nivelTres[29] = "img/nivelTres/imagen30.png";
 	nivelTres[30] = "img/nivelTres/imagen31.png";
 	nivelTres[31] = "img/nivelTres/imagen32.png";
-
+*/
 }
