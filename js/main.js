@@ -2,14 +2,20 @@ let parejasAcertadas = [];
 let numImgVisibles = 0;
 
 let puntos = 0;
+let nivel = 0;
+//let nivelMinutos = 0;
+//let nivelSegundos = 0;
 let maxPuntos = 0;
 let partidaIniciada = false;
+let click = null;
 window.onload = grid;
 
 function grid() {
+	// Obtener un Gist con su ID
 	cargarImagenes();
-	getMaxPuntos();
-
+	obtenerNivelActual();
+	click = document.getElementById("click");
+	//getMaxPuntos();
 	//NIVEL DIFICULTAD
 	let modal = document.getElementById("dificultadBtn");
 	let buttons = modal.childNodes;
@@ -21,20 +27,34 @@ function grid() {
 }
 
 function dificultad() {
-	switch (this.id) {
-		case "facil":
-			//generarCartas(4, 8, nivelUno);
-			generarCartas(3, 3, nivelUno);
-			break;
-		case "medio":
-			//generarCartas(6, 18, nivelDos);
-			generarCartas(4, 6, nivelDos);
-			break;
-		case "dificil":
-			//generarCartas(8, 32, nivelTres);
-			generarCartas(5, 10, nivelTres);
-			break;
+	if(this.id === "iniciar"){
+		switch (nivel) {
+			case 1:
+			case 2:
+			case 3:
+				generarCartas(3, 3, nivelUno);
+				break;
+			case 4:
+			case 5:
+			case 6:
+				generarCartas(4, 6, nivelDos);
+				break;
+			case 7:
+			case 8:
+			case 9:
+				generarCartas(5, 10, nivelTres);
+				break;
+		}
+	}else if(this.id === "reiniciar"){
+		nivel = 1;
+		puntos = 0;
+		minutos = 0;
+		segundos = ":0";
+		guardarNivel(nivel,puntos,minutos,segundos);
+		location.reload();
 	}
+	
+	
 	document.getElementById("modal").setAttribute("class", "hide");
 }
 
@@ -55,8 +75,6 @@ function generarCartas(valorDificultad, numImg, tematica) {
 		img.setAttribute("src", listaImagenes[i]);
 		carta(parentElement, img, numImg);
 	}
-	console.log()
-
 	parentElement.style.setProperty('--rowNum', valorDificultad);
 	parentElement.style.setProperty('--colNum', valorDificultad);
 }
@@ -81,6 +99,7 @@ function carta(contenedor, img, numImg) {
 	back.appendChild(imgReverso);
 
 	carta.onclick = function () {
+		click.play();
 		if (img.getAttribute("visible") == "false") {
 			carta.classList.add("mostrar");
 			img.setAttribute("visible", true);
@@ -90,8 +109,24 @@ function carta(contenedor, img, numImg) {
 			scorePartida();
 
 			if (parejasAcertadas.length == numImg) {
+				//guardarPuntuacion();
 				cronometrar();
-				guardarPuntuacion(); //Función del fichero modalScore.js
+				let minutos = document.getElementById("Minutos").innerHTML;
+				let segundos = document.getElementById("Segundos").innerHTML;
+				nivel = nivel +1;
+				guardarNivel(nivel,puntos,minutos,segundos);
+				if(nivel < 10){
+					location.reload();
+				}else{
+					nivel = 1;
+					puntos = 0;
+					minutos = 0;
+					segundos = ":0";
+					guardarNivel(nivel,puntos,minutos,segundos);
+					guardarPuntuacion();
+				}
+				//dificultad();
+				//guardarPuntuacion(); //Función del fichero modalScore.js //axalpusa al finalizar los niveles
 			}
 		}
 	}
@@ -208,7 +243,7 @@ function scorePartida() {
 	let divScore = document.getElementById("puntosValue");
 	divScore.innerHTML = puntos;
 }
-function setLvlPartida(valorDificultad) {//axalpusa
+function setLvlPartida(valorDificultad) {
 	let lvlPartida = document.getElementById("lvlPartidasValue");
 	switch (valorDificultad) {
 		case 3:
@@ -221,8 +256,6 @@ function setLvlPartida(valorDificultad) {//axalpusa
 			lvlPartida.innerHTML = "dificl";
 			break;
 	}
-	//document.getElementById("numPartidasValue").innerHTML = numPartidas;
-	//lvlPartida.innerHTML = lvlPartida;
 }
 
 //CRONOMETRO(EL EL FICHERO CRONOMETRO.JS)
@@ -253,7 +286,10 @@ function setMaxPuntos() {
 	let maxScore = document.getElementById("puntosMaxValue");
 	maxScore.innerHTML = maxPuntos;
 }
-
+function setPuntos() {
+	let score = document.getElementById("puntosValue");
+	score.innerHTML = puntos;
+}
 function cargarNumPartidas() {
 	let clave = "numPartidas";
 	let numPartidas = localStorage.getItem(clave);
@@ -273,7 +309,7 @@ function startIntro() {
 		steps: [
 			{
 				element: '#dificultadBtn',
-				intro: "Seleccione un nivel de dificultad para jugar."
+				intro: "Boton 'Iniciar' empieza nuevo nivel, 'Resetear' regreso todo desde el inicio."
 			},
 			{
 				element: '#tablaPuntuaciones',
@@ -307,4 +343,79 @@ function startIntro() {
 		exitOnOverlayClick: false
 	});
 	intro.start();
+}
+class NivelPartida {
+    constructor(nivel, puntos, minutos,segundos) {
+        this._nivel = nivel;
+        this._puntos = puntos;
+        this._minutos = minutos;
+		this._segundos = segundos;
+    }
+	set nivel(value) {
+        return this._nivel = value;
+    }
+
+    get nivel() {
+        return this._nivel;
+    }
+
+    set puntos(value) {
+        return this._puntos = value;
+    }
+
+    get puntos() {
+        return this._puntos;
+    }
+
+    set minutos(value) {
+        return this._minutos = value;
+    }
+
+    get minutos() {
+        return this._minutos;
+    }
+	set segundos(value) {
+        return this._segundos= value;
+    }
+
+    get segundos() {
+        return this._segundos;
+    }
+}
+function guardarNivel(nivel,puntos,minutos,segundos) {
+	webNivel(new NivelPartida(nivel, puntos, minutos,segundos));
+}
+function webNivel(valor) {
+    let clave = "nivelPartida";
+	localStorage.removeItem(clave);
+    let webStorage = JSON.parse(localStorage.getItem(clave));
+    if (webStorage == null) {
+        webStorage = [];
+    }
+    webStorage.push(valor);
+    localStorage.setItem(clave, JSON.stringify(webStorage));
+}
+function getNivelPartida() {
+    let nivelPartida = JSON.parse(localStorage.getItem("nivelPartida"));
+    if (nivelPartida != null) {
+        nivel = nivelPartida[0]._nivel;
+        puntos = nivelPartida[0]._puntos;
+        minutos = nivelPartida[0]._minutos;
+		Minutos.innerHTML = minutos;
+        segundos = nivelPartida[0]._segundos.substring(1);
+		Segundos.innerHTML = ":" + segundos;
+		this.segundos = segundos;
+		this.minutos = minutos;
+		setPuntos();
+    } else {
+        nivel = 1;
+        puntos = 0;
+        minutos = 0;
+        segundos = ":0";
+		guardarNivel(nivel,puntos,minutos,segundos);
+    }
+}
+
+function obtenerNivelActual() {
+	getNivelPartida();
 }

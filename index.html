@@ -16,18 +16,21 @@
     <link type="image/png" sizes="16x16" rel="icon" href="img/favicon.png">
     <link rel="stylesheet" href="css/icon/font-awesome-4.7.0/css/font-awesome.min.css">
     <title> Golden Memories Game</title>
+
 </head>
 
 <body>
     <!-- MODAL INICIAL ELEGIR DIFICULTAD -->
     <div id="modal" class="modalDialog">
         <div class="modal-content">
-            <div class="modal-header"> Seleccione un nivel de dificultad </div>
+            <div class="modal-header"> Golden Memories </div>
             <div id="modal-body" class="modal-body">
                 <div id="dificultadBtn" class="modal-body">
-                    <button id="facil" class="btn"> Fácil </button>
+                    <button id="iniciar" class="btn"> Iniciar </button>
+                    <button id="reiniciar" class="btn"> Reiniciar </button>
+                   <!-- <button id="facil" class="btn"> Facil </button>
                     <button id="medio" class="btn"> Medio </button>
-                    <button id="dificil" class="btn"> Dificil </button>
+                    <button id="dificil" class="btn"> Dificil </button>-->
                 </div>
                 
                 <div id="otherBtn" class="modal-body">
@@ -69,11 +72,11 @@
     <!-- MODAL TABLA DE PUNTUACIONES -->
     <div id="modalTableScore" class="hide">
         <div class="modal-content">
-            <div class="modal-header"> Tabla de puntuaciones </div>
+            <div class="modal-header"> Golden Memories <br><br>Tabla de puntuaciones </div>
             <div id="modalTableScoreBody" class="modal-tscore-body">
                 <div id="tPartidas" class="modal-tscore-body"></div>
                 <div class='footer'>
-                    <button id='limpiar' class='btn cancel'>Limpiar historial partidas</button>
+                   <!-- <button id='limpiar' class='btn cancel'>Limpiar historial partidas</button> -->
                     <button id='cerrar' class='btn cancel'>Cerrar</button>
                 </div>
             </div>
@@ -81,23 +84,38 @@
     </div>
 
     <div class="container">
-        <div id="lvlPartidas" class="lvlPartidas">
-            Nivel: <span id="lvlPartidasValue"></span>
+        <div class="menu">
+                <nav>
+                    <ul>
+                        <li>
+                            <img src="img/logo.png" alt="Golden memories" width="280" height="140" style="margin-bottom: -55px;"> 
+                        </li>
+                        <li> GOLDEN MEMORIES</li>
+                    </ul>
+                </nav>
+            <br>
         </div>
-        <div id="numPartidas" class="numPartidas"> 
-            Partida nº: <span id="numPartidasValue"></span>
-        </div>
-        <div id="maxScore" class="maxPuntos">
-            Puntuación Max.: <span id="puntosMaxValue">0</span>
-        </div>
-        <div id="score" class="puntos">
-            Puntos: <span id="puntosValue">0</span>
-        </div>
-        <div id="cronometro" class="cronometro">
-            <div class="reloj" id="Minutos">00</div>
-            <div class="reloj" id="Segundos">:00</div>
-        </div>
-        <div id="wrapper" class="wrapper"></div>
+            <div id="lvlPartidas" class="lvlPartidas">
+                Nivel: <span id="lvlPartidasValue"></span>
+            </div>
+            <div id="numPartidas" class="numPartidas"> 
+                Partida nº: <span id="numPartidasValue"></span>
+            </div>
+            <div id="maxScore" class="maxPuntos">
+                Puntuación Max.: <span id="puntosMaxValue">0</span>
+            </div>
+            <div id="score" class="puntos">
+                Puntos: <span id="puntosValue">0</span>
+            </div>
+            <div id="cronometro" class="cronometro">
+                <div class="reloj" id="Minutos">00</div>
+                <div class="reloj" id="Segundos">:00</div>
+            </div>
+            <div id="wrapper" class="wrapper"></div>
+            <audio id="click">
+                <source src="sonidos/clic.mp3">
+               <!--<source src="sonidos/clic.ogg">-->
+            </audio>
     </div>
 
     <script src="js/cronometro.js"></script>
@@ -105,6 +123,7 @@
     <script src="js/modalScore.js"></script>
     <script src="plugin/introJS/intro.js"></script>
     <script src="js/main.js"></script>
+    
 </body>
 
 </html>
