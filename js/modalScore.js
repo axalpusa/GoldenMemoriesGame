@@ -47,80 +47,59 @@ class Partida {
         return this._fecha;
     }
 }
-let contenidoScrore;
-async function guardarPuntuacion() {
+function guardarPuntuacion() {
     document.getElementById("modalScore").setAttribute("class", "modalDialog");
     let nuevaPartida = document.getElementById("nombreJugador");
     nuevaPartida.value = "";
     nuevaPartida.focus();
-
-    let lvbNivel = document.getElementById("nivelPartida");
-    lvbNivel.innerHTML = document.getElementById("lvlPartidasValue").innerHTML;
-
     let lblPuntos = document.getElementById("puntosPartida");
     lblPuntos.innerHTML = document.getElementById("puntosValue").innerHTML;
-
     let lblTiempo = document.getElementById("tiempoPartida");
     lblTiempo.innerHTML = document.getElementById("Minutos").innerHTML + "" + document.getElementById("Segundos").innerHTML;
-
-    document.getElementById("guardarJugador").onclick = async function () {
+    document.getElementById("guardarJugador").onclick = function () {
         let nombreJugador = document.getElementById("nombreJugador").value;
         let fechaActual = new Date();
         fechaActual = fechaActual.getDate() + "/" + (fechaActual.getMonth() + 1) + "/" + fechaActual.getFullYear();
-
         if(nombreJugador == "") {
             nombreJugador = "Sin nombre";
         }
-        await webStorage(new Partida(nombreJugador,lvbNivel.innerHTML, lblPuntos.innerHTML, lblTiempo.innerHTML, fechaActual));
+        webStorage(new Partida(nombreJugador, lblPuntos.innerHTML, lblTiempo.innerHTML, fechaActual));
         document.getElementById("modalScore").setAttribute("class", "hide");
-         historialPartidas();
+        historialPartidas();
     };
-
-    document.getElementById("cancelar").onclick = async function () {
+    document.getElementById("cancelar").onclick = function () {
         document.getElementById("modalScore").setAttribute("class", "hide");
-         historialPartidas();
+        historialPartidas();
     };
 }
 
-async function historialPartidas() {
-   
-    await getGist();
+function historialPartidas() {
     document.getElementById("modalTableScore").setAttribute("class", "modalDialog");
-    let historial = JSON.parse(contenidoScrore);
+    let historial = JSON.parse(localStorage.getItem("partidas"));
     if (historial != null) {
         historial = ordenar(historial);
         historial.forEach(partida => {
             getPartida(Object.values(partida).toString());
         });
     }
-
-  /*  document.getElementById("limpiar").onclick = async function () {
-       // localStorage.clear();
-        await updateGist('[{"_nombre":"NOMBRE","_nivel":"NIVEL","_puntos":"PUNTOS","_tiempo":"TIEMPO","_fecha":"FECHA"}]');
+    document.getElementById("limpiar").onclick = function () {
+        localStorage.clear();
         location.reload();
-    };*/
-
+    };
     document.getElementById("cerrar").onclick = function () {
         location.reload();
     };
 }
 
 //LOCALSTORAGE HISTORIAL PARTIDAS GUARDADAS
-async function webStorage(valor) {
-    await getGist();
-    let webStorage = JSON.parse(contenidoScrore);
-    if (webStorage == null) {
-        webStorage = [];
-    }
-   await webStorage.push(valor);
-    await updateGist(JSON.stringify(webStorage));
-   /* let clave = "partidas";
+function webStorage(valor) {
+    let clave = "partidas";
     let webStorage = JSON.parse(localStorage.getItem(clave));
     if (webStorage == null) {
         webStorage = [];
     }
     webStorage.push(valor);
-    localStorage.setItem("partidas", JSON.stringify(webStorage));*/
+    localStorage.setItem("partidas", JSON.stringify(webStorage));
 }
 
 function getPartida(partida) {
@@ -170,6 +149,7 @@ function ordenar(historial) {
     }
     return historial;
 }
+/*
 const gistId = '92bb1f7fba6019d5c44e33b1f43a01c7';
 const token = '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';
 
@@ -206,5 +186,5 @@ async function updateGist(content) {
         console.error('Error al actualizar el Gist:', error);
     }
 }
-
+*/
 

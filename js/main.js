@@ -173,7 +173,7 @@ function contarRepeticiones(lista, imagen) {
 function comprobarParejas() {
 	if (numImgVisibles == 2) {
 		bloquearPanel(true);
-		cronometrar();
+		//cronometrar();
 
 		let parejas = [];
 		numImgVisibles = 0;
@@ -186,6 +186,7 @@ function comprobarParejas() {
 		}
 
 		if (parejas[0].getAttribute("src") != parejas[1].getAttribute("src")) {
+			//cronometrar();
 			if (puntos != 0) {
 				puntos--;
 				getMaxPuntos();
@@ -196,7 +197,7 @@ function comprobarParejas() {
 					girarParejas(parejas[0], parejas[1]);
 					setTimeout(function () {
 						bloquearPanel(false);
-						cronometrar();
+					//	cronometrar();
 					}, 1000);
 				},
 				1000
@@ -207,7 +208,7 @@ function comprobarParejas() {
 			puntos += 10;
 			bloquearPanel(false);
 			getMaxPuntos();
-			cronometrar();
+			//cronometrar();
 		}
 	}
 }
