@@ -254,7 +254,7 @@ function setLvlPartida(valorDificultad) {
 			lvlPartida.innerHTML = "medio";
 			break;
 		case 5:
-			lvlPartida.innerHTML = "dificl";
+			lvlPartida.innerHTML = "difícil";
 			break;
 	}
 }
